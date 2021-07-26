@@ -1,4 +1,3 @@
-from _typeshed import Self
 import sqlite3
 
 class QueryBase:
@@ -18,4 +17,3 @@ class QueryBase:
         """
         self.micursor.execute(query,(nombreTabla,))
 
-    
