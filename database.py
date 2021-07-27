@@ -48,21 +48,19 @@ class QueryBase:
         return self.micursor.fetchall()
 
 
-
     def actualizar_contacto(self, nombreTabla, contactID, nombre = "", apellido ="", phone = "", email = ""):
-        
-        abc = self.buscarParam_byContactID(nombreTabla, contactID)
-        listavieja = abc[0]
-        listanueva = (contactID, nombre, apellido, phone, email)
+        resultado = self.buscarParam_byContactID(nombreTabla, contactID)
+        tuplavieja = resultado[0]
+        tuplanueva = (contactID, nombre, apellido, phone, email)
         parametros = ("concactID", "nombre", "apellido", "phone", "email")
 
         for i in range(1,5):
-            if listavieja[i] != listanueva[i] and listanueva[i] != "":
+            if tuplavieja[i] != tuplanueva[i] and tuplanueva[i] != "":
                 query= f"""
                 UPDATE {nombreTabla}
                 SET {parametros[i]} = ?
                 WHERE contactID = ? ;
                 """
                 
-                self.micursor.execute(query,(listanueva[i], contactID))
+                self.micursor.execute(query,(tuplanueva[i], contactID))
 

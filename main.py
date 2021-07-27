@@ -36,7 +36,6 @@ myContactApp.conexion.commit()
 myContactApp.micursor.close()
 myContactApp.conexion.close()
 
-
 """def insertarNumero (numero):
     try: 
         myContactApp.conexion.commit()
