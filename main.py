@@ -12,42 +12,21 @@ Integrantes:
     Nelis Altagracia Ortiz Melo
 """
 
-"""
-Trabajo Final
-Usando todos los conocimientos aprendidos durante el curso,
-Realizar uno de los siguientes proyectos: OPCIÓN 1
+from database import QueryBase
 
-OPCIÓN 1: Hacer un programa que funcione como agenda telefónica
-    -El programa debe precargar 10 contactos al iniciar.
-    -Al iniciar el programa el usuario debe tener opciones que le permitan agregar, buscar, actualizar y 
-        borrar un contacto. También una opción que le permita listar todos los contactos.
-    -Cada contacto debe tener al menos 3 campos Id, nombre y teléfono. (puede agregar todos los que quiera).
-    -El programa debe permitir buscar por id y por nombre.
-    -Cuando elija agregar contacto debe de pedir si desea agregar otro.
-    -Después de cada opción debe volver al menú.
-    -El programa solo terminara cuando el usuario elija salir.
-"""
+miDataBase = "MisContactos.db"
+miTabla = "myContacts"
 
-"""
-Análisis de los objetos:
--Base de Datos.
-    -Agregar.
-    -Buscar.
-    -Actualizar.
-    -Borrar.
-    -Guardar/Descartar los cambios
+myContactApp = QueryBase(miDataBase)
 
--Intefaz Gráfica.
-    -Pantalla principal.
-        -Cuadro de búsqueda.
-        -My Card.
-        -Lista de Contactos (Grupo de Letras)
+#myContactApp.crearTabla(miTabla)
+#myContactApp.insertarValores(nombreTabla=miTabla, nombre="Maria", apellido="Abreu", phone="809-962-6944", email="maria@gmail.com")
+myContactApp.eliminarcontactID( miTabla, 4)
 
-    -Buscador Integrado.
-    -Agregar Contacto.
-    -Perfil de Contacto.
-    -Editar Contacto.
-    -Delete Contact (Ventana emergente desde abajo.)
+resultados = myContactApp.buscarValor(miTabla, "%")
 
-"""
+myContactApp.conexion.commit()
+myContactApp.micursor.close()
+myContactApp.conexion.close()
 
+print(resultados)
