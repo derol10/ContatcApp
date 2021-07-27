@@ -17,25 +17,25 @@ OPCIÓN 1: Hacer un programa que funcione como agenda telefónica.
 
 Análisis de los objetos:
 
--Base de Datos:
+    -Base de Datos:
 
-    -Agregar.
-    -Buscar.
-    -Actualizar.
-    -Borrar.
-    -Guardar/Descartar los cambios
+        -Agregar.
+        -Buscar.
+        -Actualizar.
+        -Borrar.
+        -Guardar/Descartar los cambios
 
 
--Intefaz Gráfica:
+    -Intefaz Gráfica:
 
-    -Pantalla principal
+        -Pantalla principal
 
-        -Cuadro de búsqueda.
-        -My Card.
-        -Lista de Contactos (Grupo de Letras)
+            -Cuadro de búsqueda.
+            -My Card.
+            -Lista de Contactos (Grupo de Letras)
 
-    -Buscador Integrado.
-    -Agregar Contacto.
-    -Perfil de Contacto.
-    -Editar Contacto.
-    -Delete Contact (Ventana emergente desde abajo.)
+        -Buscador Integrado.
+        -Agregar Contacto.
+        -Perfil de Contacto.
+        -Editar Contacto.
+        -Delete Contact (Ventana emergente desde abajo.)
