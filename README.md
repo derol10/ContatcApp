@@ -1,6 +1,15 @@
 # ContatcApp
 Agenda teléfonica, Proyecto del Curso Introducción a Python.
 
+Profesor:
+Francis Fulgencio
+
+Integrantes:
+    Emmanuel Del Rosario Leonardo
+    Josué Rafael Piña Fermín
+    John Albert González De La Rosa
+    Nelis Altagracia Ortiz Melo
+
 Trabajo Final
 Usando todos los conocimientos aprendidos durante el curso,
 Realizar uno de los siguientes proyectos: OPCIÓN 1
