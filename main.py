@@ -48,3 +48,6 @@ myContactApp.conexion.close()
 
 print(resultados)
 
+#ok
+
+
