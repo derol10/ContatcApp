@@ -16,15 +16,20 @@ OPCIÓN 1: Hacer un programa que funcione como agenda telefónica
     -El programa solo terminara cuando el usuario elija salir.
 
 Análisis de los objetos:
--Base de Datos.
+
+-Base de Datos:
+
     -Agregar.
     -Buscar.
     -Actualizar.
     -Borrar.
     -Guardar/Descartar los cambios
+    
 
--Intefaz Gráfica.
-    -Pantalla principal.
+-Intefaz Gráfica:
+
+    -Pantalla principal
+
         -Cuadro de búsqueda.
         -My Card.
         -Lista de Contactos (Grupo de Letras)
