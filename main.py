@@ -13,11 +13,15 @@ Integrantes:
 
 Funciones Probadas:
 #myContactApp.crearTabla(miTabla)
+#print(buscarContacto("gmail.com"))
 """
 
 #from sqlite3.dbapi2 import register_adapter
 import string
 from database import QueryBase
+
+from tkinter import ttk
+import tkinter as tk
 
 miDataBase = "MisContactos.db"
 miTabla = "myContacts"
@@ -50,4 +54,48 @@ def cerrarGuardar (bool = False):
     myContactApp.micursor.close()
     myContactApp.conexion.close()
 
-print(buscarContacto("gmail.com"))
+
+# -------------------------------- tkinter --------------------------------
+
+def caracterValido (caracter):
+    # Solo permite introducir: 0-9, #, *, -
+    # Adaptado desde https://foro.recursospython.com/printthread.php?tid=168
+    return caracter in "0123456789*+#"
+ 
+
+def AbrirVentana ():
+    # Definiendo la Ventana y su geometría 
+    root = tk.Tk()
+    root.geometry("400x600")
+    fuente = "Arial Rounded MT Bold"
+
+    # configure the grid
+    root.columnconfigure(0, weight=3)
+    root.columnconfigure(1, weight=3)
+    root.columnconfigure(2, weight=3)
+
+
+    # Definiendo Label Principal
+    etiquetaTitulo= tk.Label(text="Contactos", font=(fuente, 14))
+    etiquetaTitulo.grid(column=1, row=0, sticky=tk.EW, padx=5, pady=5)
+
+    # Definiendo Buscador
+    etiquetaBuscar= tk.Label(text="Buscar", font=(fuente, 10))
+    etiquetaBuscar.grid(column=0, row=1, sticky=tk.EW, padx=5, pady=5)
+    buscador= tk.Entry(font=(fuente, 14))
+    buscador.grid(column=1, row=1, sticky=tk.EW, padx=8, pady=5)
+
+    # Agrupador de Contactos
+    listaNombre = tk.Listbox()
+
+    # Habilitando un Entry con los caracteres permitidos.
+    validarComando = root.register(caracterValido)
+    cajadeNumero = ttk.Entry(root, validate="key", validatecommand=(validarComando, "%S"))
+    cajadeNumero.grid(column=1)
+
+
+    root.mainloop()
+
+# AbrirVentana()
+
+print(get_AZ())
