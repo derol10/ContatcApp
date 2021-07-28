@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
 """
 Introducción a Programación con Python.
 Proyecto Agenda teléfonica de contactos.
@@ -57,6 +59,21 @@ def cerrarGuardar (bool = False):
 
 # -------------------------------- tkinter --------------------------------
 
+
+def getListOfKeys(dict):
+    # retorna las llaves de un diccionario como una lista.
+    list = []
+    for key in dict.keys():
+        list.append(key)
+    return list
+
+def getListOfValues(dict):
+    # retorna las llaves de un diccionario como una lista.
+    list = []
+    for key in dict.values():
+        list.append(key)
+    return list
+
 def caracterValido (caracter):
     # Solo permite introducir: 0-9, #, *, -
     # Adaptado desde https://foro.recursospython.com/printthread.php?tid=168
@@ -86,7 +103,20 @@ def AbrirVentana ():
     buscador.grid(column=1, row=1, sticky=tk.EW, padx=8, pady=5)
 
     # Agrupador de Contactos
+    miscontactos = get_AZ()
+    k = getListOfKeys(miscontactos)
+    v = getListOfValues(miscontactos)
+    
+    i = 0
+    #for x in miscontactos:
+    #    for 
+    
+    
+    
+
     listaNombre = tk.Listbox()
+    listaNombre.insert(0,get_AZ())
+    listaNombre.grid(column=1, row=2, sticky=tk.EW, padx=8, pady=5)
 
     # Habilitando un Entry con los caracteres permitidos.
     validarComando = root.register(caracterValido)
@@ -96,6 +126,6 @@ def AbrirVentana ():
 
     root.mainloop()
 
-# AbrirVentana()
+AbrirVentana()
 
-print(get_AZ())
+#print(get_AZ())
