@@ -7,7 +7,7 @@ Francis Fulgencio
 Integrantes:
     Emmanuel Del Rosario Leonardo
     Josué Rafael Piña Fermín
-    John Albert González De La Rosa
+    John Albert Gonzalez De La Rosa
     Nelis Altagracia Ortiz Melo
 
 Trabajo Final
