@@ -26,9 +26,17 @@ class QueryBase:
     def buscarValor (self, nombreTabla, valor):
         query = f"""
         SELECT * FROM {nombreTabla}
-        WHERE nombre LIKE ? OR apellido LIKE ? OR phone LIKE ? OR email LIKE ?;
+        WHERE contactID LIKE ? OR nombre LIKE ? OR apellido LIKE ? OR phone LIKE ? OR email LIKE ?;
         """
-        self.micursor.execute(query,(valor, valor, valor, valor))
+        self.micursor.execute(query,(valor, valor, valor, valor, valor))
+        return self.micursor.fetchall()
+
+    def buscarNombre (self, nombreTabla, nombre):
+        query = f"""
+        SELECT nombre, apellido FROM {nombreTabla}
+        WHERE nombre LIKE ?;
+        """
+        self.micursor.execute(query,(nombre, ))
         return self.micursor.fetchall()
 
     def eliminarcontactID (self, nombreTabla, contactID):
