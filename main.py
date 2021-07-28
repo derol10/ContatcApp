@@ -114,6 +114,7 @@ def AbrirVentana ():
     
     
 
+   # prueba
     listaNombre = tk.Listbox()
     listaNombre.insert(0,get_AZ())
     listaNombre.grid(column=1, row=2, sticky=tk.EW, padx=8, pady=5)
