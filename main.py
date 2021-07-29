@@ -122,9 +122,9 @@ def AbrirVentana ():
         
         frame.pack(pady="10", expand=True, fill='both')
 
-    """def borrarBusqueda ():
+    def borrarBusqueda ():
         for widgets in frame.winfo_children():
-            widgets.pack_forget()"""
+            widgets.pack_forget()
     
     Button(text="Buscar", font=(fuenteTitulo, 10), command= grupoContactos).pack()
     Button(text="Borrar", font=(fuenteTitulo, 10), command= borrarBusqueda).pack()
