@@ -19,9 +19,11 @@ Funciones Probadas:
 """
 
 #from sqlite3.dbapi2 import register_adapter
+from ctypes import DEFAULT_MODE
 import string
 from database import QueryBase
 
+from tkinter import *
 from tkinter import ttk
 import tkinter as tk
 
@@ -29,13 +31,6 @@ miDataBase = "MisContactos.db"
 miTabla = "myContacts"
 myContactApp = QueryBase(miDataBase)
 
-def get_AZ ():
-    # Retorna un diccionario de los contactos, agrupados segun su letra inicial alfabéticamente en orden ascendente.
-    resultados = {}
-    for i in string.ascii_uppercase:
-        resultados[i] = myContactApp.buscarNombre(miTabla, f"{i}%")
-    
-    return resultados
 
 def agregarContacto (nombre = "", apellido = "", phone = "", email = ""):
     myContactApp.insertarValores(nombreTabla=miTabla, nombre=nombre, apellido=apellido, phone=phone, email=email)
@@ -56,23 +51,42 @@ def cerrarGuardar (bool = False):
     myContactApp.micursor.close()
     myContactApp.conexion.close()
 
+def get_AZ ():
+    # Retorna un diccionario de los contactos, agrupados segun su letra inicial alfabéticamente en orden ascendente.
+    resultados = {}
+    for i in string.ascii_uppercase:
+        resultados[i] = myContactApp.buscarNombre(miTabla, f"{i}%")
+    
+    return resultados
 
+def get_AZ_filtro (substring=""):
+    # Retorna un diccionario de los contactos, agrupados segun su letra inicial alfabéticamente en orden ascendente.
+    resultados = {}
+    for i in string.ascii_uppercase:
+        resultados[i] = myContactApp.buscarValor_AZ(miTabla, f"{i}%", f"%{substring}%")
+    
+    return resultados
 # -------------------------------- tkinter --------------------------------
+class ScrollableFrame(ttk.Frame):
+    def __init__(self, container, *args, **kwargs):
+        super().__init__(container, *args, **kwargs)
+        canvas = tk.Canvas(self)
+        scrollbar = ttk.Scrollbar(self, orient="vertical", command=canvas.yview)
+        self.scrollable_frame = ttk.Frame(canvas)
 
+        self.scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(
+                scrollregion=canvas.bbox("all")
+            )
+        )
 
-def getListOfKeys(dict):
-    # retorna las llaves de un diccionario como una lista.
-    list = []
-    for key in dict.keys():
-        list.append(key)
-    return list
+        canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
 
-def getListOfValues(dict):
-    # retorna las llaves de un diccionario como una lista.
-    list = []
-    for key in dict.values():
-        list.append(key)
-    return list
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
 
 def caracterValido (caracter):
     # Solo permite introducir: 0-9, #, *, -
@@ -82,51 +96,55 @@ def caracterValido (caracter):
 
 def AbrirVentana ():
     # Definiendo la Ventana y su geometría 
-    root = tk.Tk()
+    root = Tk()
     root.geometry("400x600")
-    fuente = "Arial Rounded MT Bold"
+    fuenteTitulo = "Arial Rounded MT Bold"
+    fuenteCuerpo = "Calibri" 
 
-    # configure the grid
-    root.columnconfigure(0, weight=3)
-    root.columnconfigure(1, weight=3)
-    root.columnconfigure(2, weight=3)
-
-
-    # Definiendo Label Principal
-    etiquetaTitulo= tk.Label(text="Contactos", font=(fuente, 14))
-    etiquetaTitulo.grid(column=1, row=0, sticky=tk.EW, padx=5, pady=5)
+    # Pantalla Principal
+    Label(text="Contactos", font=(fuenteTitulo, 14)).pack()
 
     # Definiendo Buscador
-    etiquetaBuscar= tk.Label(text="Buscar", font=(fuente, 10))
-    etiquetaBuscar.grid(column=0, row=1, sticky=tk.EW, padx=5, pady=5)
-    buscador= tk.Entry(font=(fuente, 14))
-    buscador.grid(column=1, row=1, sticky=tk.EW, padx=8, pady=5)
+    
+    
+    frame = ScrollableFrame(root)
+    def grupoContactos ():
+        # Agrupador de Contactos  
+        #Creando Scrollbar ----------
+        #https://blog.teclado.com/tkinter-scrollable-frames/
 
-    # Agrupador de Contactos
-    miscontactos = get_AZ()
-    k = getListOfKeys(miscontactos)
-    v = getListOfValues(miscontactos)
+        print(cajaBusqueda.get())
+        miscontactos = get_AZ_filtro(str(cajaBusqueda.get()))
+        for x, y in miscontactos.items():
+            Label(frame.scrollable_frame, text=f"   {x}", width=1000, borderwidth=1, relief='raised' , anchor="w", font=(fuenteCuerpo, 14)).pack(anchor="w", padx="2", pady="2", fill="x")
+            for z in y:
+                Button(frame.scrollable_frame, text=f"{z[0]} - {z[1]} {z[2]} ", anchor="e", font=(fuenteCuerpo, 12)).pack(anchor="w", padx="20")
+        
+        frame.pack(pady="10", expand=True, fill='both')
+
+    """def borrarBusqueda ():
+        for widgets in frame.winfo_children():
+            widgets.pack_forget()"""
     
-    i = 0
-    #for x in miscontactos:
-    #    for 
-    
+    Button(text="Buscar", font=(fuenteTitulo, 10), command= grupoContactos).pack()
+    Button(text="Borrar", font=(fuenteTitulo, 10), command= borrarBusqueda).pack()
+    cajaBusqueda = Entry(font=(fuenteTitulo, 14))
+    cajaBusqueda.pack()
     
     
 
-   # prueba
-    listaNombre = tk.Listbox()
-    listaNombre.insert(0,get_AZ())
-    listaNombre.grid(column=1, row=2, sticky=tk.EW, padx=8, pady=5)
+    grupoContactos()
+    # ------------------------------------------------------
 
     # Habilitando un Entry con los caracteres permitidos.
     validarComando = root.register(caracterValido)
-    cajadeNumero = ttk.Entry(root, validate="key", validatecommand=(validarComando, "%S"))
-    cajadeNumero.grid(column=1)
-
-
+    cajadeNumero = Entry(root, validate="key", validatecommand=(validarComando, "%S"))
+    cajadeNumero.pack()
+    
     root.mainloop()
 
 AbrirVentana()
+
+
 
 #print(get_AZ())

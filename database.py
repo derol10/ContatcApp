@@ -31,9 +31,17 @@ class QueryBase:
         self.micursor.execute(query,(valor, valor, valor, valor, valor))
         return self.micursor.fetchall()
 
+    def buscarValor_AZ (self, nombreTabla, AZ ,valor):
+        query = f"""
+        SELECT * FROM {nombreTabla}
+        WHERE nombre LIKE ? AND (contactID LIKE ? OR apellido LIKE ? OR phone LIKE ? OR email LIKE ?);
+        """
+        self.micursor.execute(query,(AZ, valor, valor, valor, valor))
+        return self.micursor.fetchall()
+
     def buscarNombre (self, nombreTabla, nombre):
         query = f"""
-        SELECT nombre, apellido FROM {nombreTabla}
+        SELECT contactID, nombre, apellido FROM {nombreTabla}
         WHERE nombre LIKE ?;
         """
         self.micursor.execute(query,(nombre, ))
