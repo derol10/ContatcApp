@@ -13,15 +13,12 @@ class QueryBase:
         self.micursor.execute(query)
 
     def insertarValores (self, nombreTabla, nombre = "", apellido = "", phone = "", email = ""):
-        if nombre != "" or apellido != "" or phone != "" or email !="":
-            query = f"""
-            INSERT INTO {nombreTabla} VALUES ( NULL , ? , ? , ? , ?);
-            """
-            self.micursor.execute(query,(nombre, apellido, phone, email))
-            
-            return "Contacto guardado exitosamente."
-        else:
-            return ("Se han descartado los cambios")
+
+        query = f"""
+        INSERT INTO {nombreTabla} VALUES ( NULL , ? , ? , ? , ?);
+        """
+        self.micursor.execute(query,(nombre, apellido, phone, email))
+
 
     def buscarValor (self, nombreTabla, valor):
         query = f"""
@@ -34,9 +31,9 @@ class QueryBase:
     def buscarValor_AZ (self, nombreTabla, AZ ,valor):
         query = f"""
         SELECT * FROM {nombreTabla}
-        WHERE nombre LIKE ? AND (contactID LIKE ? OR apellido LIKE ? OR phone LIKE ? OR email LIKE ?);
+        WHERE nombre LIKE ? AND (nombre LIKE ? OR contactID LIKE ? OR apellido LIKE ? OR phone LIKE ? OR email LIKE ? );
         """
-        self.micursor.execute(query,(AZ, valor, valor, valor, valor))
+        self.micursor.execute(query,(AZ, valor, valor, valor, valor, valor))
         return self.micursor.fetchall()
 
     def buscarNombre (self, nombreTabla, nombre):
